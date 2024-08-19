@@ -6,6 +6,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 
 
+const db = require("./models");
+db.sequelize.sync().then(() => {
+    console.log("db resync");
+});
 
 app.get('/', function (req, res) {
     // eslint-disable-next-line no-undef
