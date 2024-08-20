@@ -4,9 +4,10 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.set('view engine', 'ejs');
-
+app.use(express.static('public'));
 
 const db = require("./models");
+const { formatDate } = require('./utils/date.utils');
 db.sequelize.sync().then(() => {
     console.log("db resync");
 });
@@ -33,6 +34,50 @@ app.get('/respuestatexto', function (req, res) {
     res.render('respuesta.ejs', { nombre: nombre, apellido: apellido });
 });
 
+app.get('/personas', function (req, res) {
+    db.personas.findAll().then(personas => {
+        res.render('personas/list.ejs', { personas: personas });
+    });
+});
+app.get('/personas/create', function (req, res) {
+    res.render('personas/form.ejs', { persona: null });
+});
+app.post('/personas/create', function (req, res) {
+    db.personas.create({
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        ciudad: req.body.ciudad,
+        edad: req.body.edad,
+        fechaNacimiento: req.body.fechaNacimiento
+    }).then(() => {
+        res.redirect('/personas');
+    });
+});
+app.get('/personas/:id/edit', async function (req, res) {
+    const id = req.params.id;
+    const persona = await db.personas.findByPk(id);
+    const fechaFormateada = formatDate(persona.fechaNacimiento);
+    res.render('personas/form.ejs', { persona: persona, fechaFormateada: fechaFormateada });
+});
+app.post('/personas/:id/edit', async function (req, res) {
+    const id = req.params.id;
+    const persona = await db.personas.findByPk(id);
+
+    persona.nombre = req.body.nombre;
+    persona.apellido = req.body.apellido;
+    persona.ciudad = req.body.ciudad;
+    persona.edad = req.body.edad;
+    persona.fechaNacimiento = req.body.fechaNacimiento;
+    await persona.save();
+    res.redirect('/personas');
+});
+
+app.post('/personas/:id/delete', async function (req, res) {
+    const id = req.params.id;
+    const persona = await db.personas.findByPk(id);
+    await persona.destroy();
+    res.redirect('/personas');
+});
 app.listen(3000, function () {
     console.log('Ingrese a http://localhost:3000')
 })
