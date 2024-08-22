@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         fechaNacimiento: {
             type: Sequelize.DATE
+        },
+        genero: {
+            type: Sequelize.INTEGER
         }
     });
     return Persona;

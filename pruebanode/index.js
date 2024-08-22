@@ -8,7 +8,9 @@ app.use(express.static('public'));
 
 const db = require("./models");
 const { formatDate } = require('./utils/date.utils');
-db.sequelize.sync().then(() => {
+db.sequelize.sync({
+    // force: true // drop tables and recreate
+}).then(() => {
     console.log("db resync");
 });
 
@@ -48,7 +50,8 @@ app.post('/personas/create', function (req, res) {
         apellido: req.body.apellido,
         ciudad: req.body.ciudad,
         edad: req.body.edad,
-        fechaNacimiento: req.body.fechaNacimiento
+        fechaNacimiento: req.body.fechaNacimiento,
+        genero: req.body.genero
     }).then(() => {
         res.redirect('/personas');
     });
@@ -68,6 +71,7 @@ app.post('/personas/:id/edit', async function (req, res) {
     persona.ciudad = req.body.ciudad;
     persona.edad = req.body.edad;
     persona.fechaNacimiento = req.body.fechaNacimiento;
+    persona.genero = req.body.genero;
     await persona.save();
     res.redirect('/personas');
 });
