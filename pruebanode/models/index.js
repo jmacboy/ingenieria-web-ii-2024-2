@@ -14,4 +14,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.personas = require("./persona.model.js")(sequelize, Sequelize);
+db.mascotas = require("./mascota.model.js")(sequelize, Sequelize);
+db.personas.hasMany(db.mascotas, { as: "mascotas" });
+db.mascotas.belongsTo(db.personas, {
+    foreignKey: "personaId",
+    as: "persona",
+});
 module.exports = db;

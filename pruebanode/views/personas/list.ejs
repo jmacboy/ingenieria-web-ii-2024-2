@@ -19,6 +19,7 @@
                                         <th>Edad</th>
                                         <th>Fecha de Nacimiento</th>
                                         <th>Género</th>
+                                        <th>Mascotas</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -46,6 +47,16 @@
                                             </td>
                                             <td>
                                                 <%= persona.genero %>
+                                            </td>
+                                            <td>
+                                                <ol>
+                                                    <% persona.mascotas.forEach(mascota=> { %>
+                                                        <li>
+                                                            <%= mascota.nombre %>
+                                                                <%=mascota.tipo%>
+                                                        </li>
+                                                        <% }) %>
+                                                </ol>
                                             </td>
                                             <td><a class="btn btn-primary"
                                                     href="/personas/<%= persona.id %>/edit">Editar</a></td>
