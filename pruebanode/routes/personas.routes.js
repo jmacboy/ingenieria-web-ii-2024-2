@@ -9,6 +9,8 @@ module.exports = app => {
     router.get("/:id/edit", controller.editPersona);
     router.post("/:id/edit", controller.updatePersona);
     router.post("/:id/delete", controller.deletePersona);
+    router.get("/:id/profile", controller.uploadProfileGet);
+    router.post("/:id/profile", controller.uploadProfilePost);
 
     app.use('/personas', router);
 

@@ -12,6 +12,7 @@
                             <table class="table ">
                                 <thead class="table-dark">
                                     <tr>
+                                        <th></th>
                                         <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Apellido</th>
@@ -22,11 +23,16 @@
                                         <th>Mascotas</th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% personas.forEach(persona=> { %>
                                         <tr>
+                                            <td>
+                                                <img src="/images/profile/<%= persona.id %>.jpg" alt="Foto de perfil"
+                                                    class="profile-img" />
+                                            </td>
                                             <td>
                                                 <%= persona.id %>
                                             </td>
@@ -58,6 +64,8 @@
                                                         <% }) %>
                                                 </ol>
                                             </td>
+                                            <td><a class="btn btn-success"
+                                                    href="/personas/<%= persona.id %>/profile">Foto de perfil</a></td>
                                             <td><a class="btn btn-primary"
                                                     href="/personas/<%= persona.id %>/edit">Editar</a></td>
                                             <td>

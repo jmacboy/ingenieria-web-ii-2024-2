@@ -9,9 +9,16 @@ exports.listMascota = function (req, res) {
 }
 exports.createMascota = async function (req, res) {
     const personas = await db.personas.findAll();
-    res.render('mascotas/form.ejs', { mascota: null, personas });
+    res.render('mascotas/form.ejs', { mascota: null, personas, errors: null });
 }
-exports.insertMascota = function (req, res) {
+exports.insertMascota = async function (req, res) {
+    const { errors, mascota } = validateMascotaForm(req);
+    if (errors) {
+        const personas = await db.personas.findAll();
+
+        res.render('mascotas/form.ejs', { mascota: mascota, personas, errors: errors });
+        return;
+    }
     db.mascotas.create({
         nombre: req.body.nombre,
         tipo: req.body.tipo,
@@ -25,9 +32,18 @@ exports.editMascota = async function (req, res) {
     const mascota = await db.mascotas.findByPk(id);
     const personas = await db.personas.findAll();
 
-    res.render('mascotas/form.ejs', { mascota: mascota, personas });
+    res.render('mascotas/form.ejs', { mascota: mascota, personas, errors: null });
 }
 exports.updateMascota = async function (req, res) {
+    const validacion = validateMascotaForm(req);
+    const errors = validacion.errors;
+    const mascotaErrors = validacion.mascota;
+    if (errors) {
+        const personas = await db.personas.findAll();
+
+        res.render('mascotas/form.ejs', { mascota: mascotaErrors, personas, errors: errors });
+        return;
+    }
     const id = req.params.id;
     const mascota = await db.mascotas.findByPk(id);
 
@@ -42,4 +58,21 @@ exports.deleteMascota = async function (req, res) {
     const mascota = await db.mascotas.findByPk(id);
     await mascota.destroy();
     res.redirect('/mascotas');
+}
+const validateMascotaForm = function (req) {
+    if (!req.body.nombre || !req.body.tipo || !req.body.personaId) {
+        const errors = {
+            nombre: !req.body.nombre,
+            tipo: !req.body.tipo,
+            personaId: !req.body.personaId
+        };
+        errors.message = 'Todos los campos son obligatorios';
+        const mascota = {
+            nombre: req.body.nombre,
+            tipo: req.body.tipo,
+            personaId: req.body.personaId
+        };
+        return { errors, mascota };
+    }
+    return { errors: null, mascota: null };
 }
