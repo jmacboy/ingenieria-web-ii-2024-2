@@ -83,6 +83,24 @@
                                         </select>
                                     </div>
                                     <div class="mt-2">
+                                        <label>Usuario</label>
+                                        <select required name="usuarioId" class="form-select">
+                                            <option value="">Seleccione un usuario</option>
+                                            <% usuarios.forEach(usuario=> { %>
+                                                <option value="<%=usuario.id %>" <%=(persona &&
+                                                    persona.usuarioId==usuario.id) && "selected" %>>
+                                                    <%=usuario.email %>
+                                                </option>
+                                                <% }) %>
+
+                                        </select>
+                                        <%if (errors?.usuarioId) {%>
+                                            <div class="error-label">
+                                                Por favor seleccione un usuario
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <div class="mt-2">
                                         <input class="btn btn-primary" type="submit" value="Enviar">
                                     </div>
                         </form>

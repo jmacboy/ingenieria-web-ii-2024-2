@@ -38,8 +38,10 @@ db.mascotas.belongsToMany(db.competencias, {
 });
 
 //one to one usuario - persona
-//TODO: Arreglar
-// db.usuarios.hasOne(db.personas, { as: "persona" });
-
+db.usuarios.hasOne(db.personas, { as: "persona", foreignKey: "usuarioId" });
+db.personas.belongsTo(db.usuarios, {
+    foreignKey: "usuarioId",
+    as: "usuario",
+});
 
 module.exports = db;

@@ -23,6 +23,10 @@ module.exports = (sequelize, Sequelize) => {
         genero: {
             type: Sequelize.INTEGER,
             allowNull: false
+        },
+        usuarioId: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     });
     return Persona;

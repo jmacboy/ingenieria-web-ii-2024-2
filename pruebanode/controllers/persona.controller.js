@@ -8,8 +8,9 @@ exports.listPersona = function (req, res) {
         res.render('personas/list.ejs', { personas: personas });
     });
 }
-exports.createPersona = function (req, res) {
-    res.render('personas/form.ejs', { persona: null, errors: null });
+exports.createPersona = async function (req, res) {
+    const usuarios = await db.usuarios.findAll();
+    res.render('personas/form.ejs', { persona: null, usuarios, errors: null });
 }
 exports.insertPersona = function (req, res) {
     const { errors, persona } = validatePersonaForm(req);
@@ -18,13 +19,16 @@ exports.insertPersona = function (req, res) {
         res.render('personas/form.ejs', { persona: persona, errors: errors, fechaFormateada });
         return;
     }
+    //para acceder al usuario que está loggeado
+    
     db.personas.create({
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         ciudad: req.body.ciudad,
         edad: req.body.edad,
         fechaNacimiento: req.body.fechaNacimiento,
-        genero: req.body.genero
+        genero: req.body.genero,
+        usuarioId: req.body.usuarioId
     }).then(() => {
         res.redirect('/personas');
     });
@@ -93,14 +97,15 @@ exports.uploadProfilePost = async function (req, res) {
 const validatePersonaForm = function (req) {
     if (!req.body.nombre || !req.body.apellido ||
         !req.body.ciudad || !req.body.edad || !req.body.fechaNacimiento ||
-        !req.body.genero) {
+        !req.body.genero || !req.body.usuarioId) {
         const errors = {
             nombre: !req.body.nombre,
             apellido: !req.body.apellido,
             ciudad: !req.body.ciudad,
             edad: !req.body.edad,
             fechaNacimiento: !req.body.fechaNacimiento,
-            genero: !req.body.genero
+            genero: !req.body.genero,
+            usuarioId: !req.body.usuario
         };
         errors.message = 'Todos los campos son obligatorios';
         const persona = {
@@ -109,7 +114,8 @@ const validatePersonaForm = function (req) {
             ciudad: req.body.ciudad,
             edad: req.body.edad,
             fechaNacimiento: req.body.fechaNacimiento,
-            genero: req.body.genero
+            genero: req.body.genero,
+            usuarioId: req.body.usuarioId
         };
         return { errors, persona };
     }
