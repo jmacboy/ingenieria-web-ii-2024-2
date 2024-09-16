@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "785eb1a7-e1ff-4deb-be29-5e9bcd3ff45a",
+		"name": "web2-2024-2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6777473"
+	},
+	"item": [
+		{
+			"name": "get hola mundo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/holamundo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"holamundo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "concatenar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"var1\": \"Pepe\",\r\n    \"var2\": \"Pecas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/concatenar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"concatenar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get lista personas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/personas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"personas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insertar persona",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/personas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"personas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
