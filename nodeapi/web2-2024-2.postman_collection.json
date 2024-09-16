@@ -7,6 +7,127 @@
 	},
 	"item": [
 		{
+			"name": "personas",
+			"item": [
+				{
+					"name": "get lista personas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/personas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"personas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get persona by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/personas/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"personas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insertar persona",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Perez\",\r\n    \"ciudad\": \"Scz\",\r\n    \"edad\": 12,\r\n    \"fechaNacimiento\": \"2000-01-01\",\r\n    \"usuarioId\": 1,\r\n    \"genero\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/personas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"personas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar persona",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Perico\",\r\n    \"apellido\": \"de los Palotes\",\r\n    \"ciudad\": \"Scz\",\r\n    \"edad\": 12,\r\n    \"fechaNacimiento\": \"2000-01-01\",\r\n    \"usuarioId\": 1,\r\n    \"genero\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/personas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"personas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete persona",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/personas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"personas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "get hola mundo",
 			"request": {
 				"method": "GET",
@@ -48,44 +169,6 @@
 					"port": "3000",
 					"path": [
 						"concatenar"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get lista personas",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/personas",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"personas"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "insertar persona",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/personas",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"personas"
 					]
 				}
 			},
