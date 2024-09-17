@@ -21,6 +21,17 @@ db.sequelize.sync({
     console.log("db resync");
 });
 
+// middleware para validación de errores en JSON
+app.use(function (error, req, res, next) {
+    if (error instanceof SyntaxError) {
+        res.status(400).json({
+            msg: 'Error en el JSON'
+        });
+    } else {
+        next();
+    }
+});
+
 require('./routes')(app);
 
 app.listen(3000, function () {
