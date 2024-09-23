@@ -94,9 +94,8 @@ exports.updatePersonaPut = async (req, res) => {
         persona.genero = req.body.genero;
         persona.usuarioId = req.body.usuarioId;
 
-        await db.personas.update(persona, {
-            where: { id: id }
-        });
+        await persona.save();
+
         res.json(persona);
     } catch (error) {
         sendError500(error);
