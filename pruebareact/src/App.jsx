@@ -13,8 +13,6 @@ const App = () => {
         }} type="text" placeholder="Ingrese su nombre..." />
       </div>
       <div>Mi nombre es: {nombre}</div>
-      <ListaPersonas />
-      <FormPersona />
     </div>
   )
 }
