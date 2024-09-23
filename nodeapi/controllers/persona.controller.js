@@ -1,5 +1,5 @@
 const db = require("../models");
-const { isRequestValid } = require("../utils/request.utils");
+const { isRequestValid, sendError500 } = require("../utils/request.utils");
 // Estados del servidor
 //200 -> ok
 //201 -> creado
@@ -69,9 +69,7 @@ exports.updatePersonaPatch = async (req, res) => {
         persona.genero = req.body.genero || persona.genero;
         persona.usuarioId = req.body.usuarioId || persona.usuarioId;
 
-        await db.personas.update(persona, {
-            where: { id: id }
-        });
+        await persona.save();
         res.json(persona);
     } catch (error) {
         sendError500(error);
