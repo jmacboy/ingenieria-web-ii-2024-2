@@ -1,6 +1,6 @@
 import { useState } from "react"
-import FormPersona from "./FormPersona";
-import ListaPersonas from "./ListaPersonas";
+import FormPersona from "./pages/personas/FormPersona";
+import ListaPersonas from "./pages/personas/ListaPersonas";
 
 const App = () => {
   const [nombre, setNombre] = useState('');

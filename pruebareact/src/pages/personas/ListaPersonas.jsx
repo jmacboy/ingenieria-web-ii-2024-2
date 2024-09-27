@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
-import NavMenu from "./components/NavMenu";
+import NavMenu from "../../components/NavMenu";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import { generoForDisplay } from "../../utils/stringUtils";
 
 const ListaPersonas = () => {
     const [ListaPersonas, setListaPersonas] = useState([]);
@@ -48,6 +50,7 @@ const ListaPersonas = () => {
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>
+                                            <th>Foto</th>
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Apellido</th>
@@ -55,7 +58,8 @@ const ListaPersonas = () => {
                                             <th>Edad</th>
                                             <th>Fecha de nacimiento</th>
                                             <th>Género</th>
-                                            <th>Usuario Id</th>
+                                            <th>Usuario</th>
+                                            <th></th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -63,14 +67,18 @@ const ListaPersonas = () => {
                                     <tbody>
                                         {ListaPersonas.map(persona =>
                                             <tr key={persona.id}>
+                                                <td>
+                                                    <img src={"http://localhost:3000/personas/" + persona.id + ".jpg"} alt="Foto de perfil" width="100" />
+                                                </td>
                                                 <td>{persona.id}</td>
                                                 <td>{persona.nombre}</td>
                                                 <td>{persona.apellido}</td>
                                                 <td>{persona.ciudad}</td>
                                                 <td>{persona.edad}</td>
-                                                <td>{persona.fechaNacimiento}</td>
-                                                <td>{persona.genero}</td>
-                                                <td>{persona.usuarioId}</td>
+                                                <td>{moment(persona.fechaNacimiento).format('DD/MM/YYYY')}</td>
+                                                <td>{generoForDisplay(persona.genero)}</td>
+                                                <td>{persona.usuario.email}</td>
+                                                <td><Link className="btn btn-success" to={"/personas/" + persona.id + "/foto"}>Foto de Perfil</Link></td>
                                                 <td><Link className="btn btn-primary" to={"/personas/" + persona.id}>Editar</Link></td>
                                                 <td><Button variant="danger" onClick={() => { eliminar(persona.id) }}>Eliminar</Button></td>
                                             </tr>

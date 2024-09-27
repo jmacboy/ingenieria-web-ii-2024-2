@@ -15,6 +15,12 @@ const NavMenu = () => {
                                 Crear Persona
                             </Link>
                         </NavDropdown>
+                        <NavDropdown title="Usuarios" id="basic-nav-dropdown">
+                            <Link className="dropdown-item" to={"/usuarios"}>Lista de Usuarios</Link>
+                            <Link className="dropdown-item" to="/usuarios/create">
+                                Crear Usuario
+                            </Link>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

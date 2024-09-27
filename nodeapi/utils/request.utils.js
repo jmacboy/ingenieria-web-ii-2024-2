@@ -1,7 +1,7 @@
 module.exports = {
     isRequestValid: (requiredFields, body, res) => {
         for (const field of requiredFields) {
-            if (!body[field]) {
+            if (body[field] === null || body[field] === undefined) {
                 res.status(400).json({
                     msg: `Falta el campo ${field}`
                 });

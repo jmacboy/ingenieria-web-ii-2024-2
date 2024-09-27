@@ -9,6 +9,7 @@ module.exports = app => {
     router.put('/:id', controller.updatePersonaPut);
     router.patch('/:id', controller.updatePersonaPatch);
     router.delete('/:id', controller.deletePersona);
+    router.post('/:id/foto', controller.uploadPicture);
     app.use('/personas', router);
 
 };

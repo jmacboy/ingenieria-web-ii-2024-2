@@ -10,7 +10,9 @@ const { isRequestValid, sendError500 } = require("../utils/request.utils");
 //500 -> errores del servidor
 exports.listPersona = async (req, res) => {
     try {
-        const personas = await db.personas.findAll();
+        const personas = await db.personas.findAll({
+            include: ['usuario']
+        });
         res.json(personas);
     } catch (error) {
         sendError500(error);
@@ -112,6 +114,28 @@ exports.deletePersona = async (req, res) => {
         res.json({
             msg: 'Persona eliminada correctamente'
         });
+    } catch (error) {
+        sendError500(error);
+    }
+}
+exports.uploadPicture = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const persona = await getPersonaOr404(id, res);
+        if (!persona) {
+            return;
+        }
+        if (!req.files) {
+            res.status(400).json({
+                msg: 'No se ha enviado el archivo'
+            });
+            return;
+        }
+        const file = req.files.fotoPerfil;
+        const fileName = persona.id + '.jpg';
+        file.mv(`public/personas/${fileName}`);
+        await persona.save();
+        res.json(persona);
     } catch (error) {
         sendError500(error);
     }
