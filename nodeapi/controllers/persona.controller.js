@@ -9,6 +9,7 @@ const { isRequestValid, sendError500 } = require("../utils/request.utils");
 //404 -> no encontrado
 //500 -> errores del servidor
 exports.listPersona = async (req, res) => {
+    console.log('usuario', req.user);
     try {
         const personas = await db.personas.findAll({
             include: ['usuario']

@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavMenu from "../../components/NavMenu";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import moment from "moment";
+import { useAuth } from "../../hooks/useAuth";
 
 const FotoPersona = () => {
+    useAuth();
+
     const navigate = useNavigate();
     const { id } = useParams();
     const [fotoPerfil, setFotoPerfil] = useState(null);

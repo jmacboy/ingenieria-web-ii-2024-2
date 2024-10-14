@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var corsOptions = {
+const corsOptions = {
     origin: 'http://localhost:5173',
 }
 app.use(cors(corsOptions))
@@ -21,11 +21,13 @@ app.use(fileUpload({
 }));
 
 const db = require("./models");
+
 db.sequelize.sync({
     // force: true // drop tables and recreate
 }).then(() => {
     console.log("db resync");
 });
+
 
 // middleware para validación de errores en JSON
 app.use(function (error, req, res, next) {

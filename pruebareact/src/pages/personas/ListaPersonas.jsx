@@ -5,16 +5,22 @@ import NavMenu from "../../components/NavMenu";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { generoForDisplay } from "../../utils/stringUtils";
+import { useAuth } from "../../hooks/useAuth";
 
 const ListaPersonas = () => {
     const [ListaPersonas, setListaPersonas] = useState([]);
+    useAuth();
     useEffect(() => {
         getListaPersonas();
         document.title = "Prueba título";
     }, [])
 
     const getListaPersonas = () => {
-        axios.get('http://localhost:3000/personas')
+        axios.get('http://localhost:3000/personas', {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem('token')
+            }
+        })
             .then(res => {
                 setListaPersonas(res.data);
                 // console.log(res.data);

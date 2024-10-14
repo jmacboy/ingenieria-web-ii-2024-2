@@ -4,9 +4,12 @@ import NavMenu from "../../components/NavMenu";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { useAuth } from "../../hooks/useAuth";
 
 const FormPersona = () => {
     const navigate = useNavigate();
+    useAuth();
+
     const { id } = useParams();
     const [nombre, setNombre] = useState('')
     const [apellido, setApellido] = useState('')
@@ -27,7 +30,13 @@ const FormPersona = () => {
         getListaUsuarios();
     }, [])
     const getPersonaById = () => {
-        axios.get(`http://localhost:3000/personas/${id}`)
+        axios.get(`http://localhost:3000/personas/${id}`,
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem('token')
+                }
+            }
+        )
             .then(res => {
                 const persona = res.data;
                 setNombre(persona.nombre);

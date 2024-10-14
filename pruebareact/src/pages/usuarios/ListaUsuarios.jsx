@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
 import NavMenu from "../../components/NavMenu";
 import { Link } from "react-router-dom";
-import moment from "moment";
-import { generoForDisplay } from "../../utils/stringUtils";
+import { useAuth } from "../../hooks/useAuth";
 
 const ListaUsuarios = () => {
+    useAuth();
+
     const [ListaUsuarios, setListaUsuarios] = useState([]);
     useEffect(() => {
         getListaUsuarios();

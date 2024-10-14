@@ -9,10 +9,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FotoPersona from './pages/personas/FotoPersona.jsx';
 import ListaUsuarios from './pages/usuarios/ListaUsuarios.jsx';
 import FormUsuario from './pages/usuarios/FormUsuario.jsx';
+import FormLogin from './pages/auth/FormLogin.jsx';
+import FormRegister from './pages/auth/FormRegister.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <FormLogin />,
+  },
+  {
+    path: "/register",
+    element: <FormRegister />,
+  },
+  {
+    path: '/helloworld',
+    element: <App />
   },
   {
     path: "/personas",

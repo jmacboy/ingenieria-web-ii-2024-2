@@ -18,6 +18,7 @@ db.personas = require("./persona.model.js")(sequelize, Sequelize);
 db.mascotas = require("./mascota.model.js")(sequelize, Sequelize);
 db.competencias = require("./competencia.model.js")(sequelize, Sequelize);
 db.usuarios = require("./usuario.model.js")(sequelize, Sequelize);
+db.tokens = require("./auth_token.model.js")(sequelize, Sequelize);
 
 // one to many o many to one
 db.personas.hasMany(db.mascotas, { as: "mascotas" });
@@ -25,6 +26,13 @@ db.mascotas.belongsTo(db.personas, {
     foreignKey: "personaId",
     as: "persona",
 });
+
+db.usuarios.hasMany(db.tokens, { as: "tokens" });
+db.tokens.belongsTo(db.usuarios, {
+    foreignKey: "usuarioId",
+    as: "usuario",
+});
+
 // many to many
 db.competencias.belongsToMany(db.mascotas, {
     through: "competencia_mascota",

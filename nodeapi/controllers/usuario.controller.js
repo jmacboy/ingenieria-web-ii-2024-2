@@ -48,8 +48,9 @@ exports.createUsuario = async (req, res) => {
             password: sha1(req.body.password)
         }
         const usuarioCreada = await db.usuarios.create(usuario);
+        const usuarioRespuesta = await db.usuarios.findByPk(usuarioCreada.id);
 
-        res.status(201).json(usuarioCreada);
+        res.status(201).json(usuarioRespuesta);
     } catch (error) {
         sendError500(error);
     }
