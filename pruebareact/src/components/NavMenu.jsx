@@ -51,6 +51,12 @@ const NavMenu = () => {
                                         Crear Persona
                                     </Link>
                                 </NavDropdown>
+                                <NavDropdown title="Mascotas" id="mascotas-dropdown">
+                                    <Link className="dropdown-item" to={"/mascotas"}>Lista de Mascotas</Link>
+                                    <Link className="dropdown-item" to="/mascotas/create">
+                                        Crear Mascota
+                                    </Link>
+                                </NavDropdown>
                                 <NavDropdown title="Usuarios" id="usuarios-dropdown">
                                     <Link className="dropdown-item" to={"/usuarios"}>Lista de Usuarios</Link>
                                     <Link className="dropdown-item" to="/usuarios/create">

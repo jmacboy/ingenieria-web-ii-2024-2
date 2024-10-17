@@ -11,6 +11,8 @@ import ListaUsuarios from './pages/usuarios/ListaUsuarios.jsx';
 import FormUsuario from './pages/usuarios/FormUsuario.jsx';
 import FormLogin from './pages/auth/FormLogin.jsx';
 import FormRegister from './pages/auth/FormRegister.jsx';
+import FormMascota from './pages/mascotas/FormMascota.jsx';
+import ListaMascotas from './pages/mascotas/ListaMascotas.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +41,18 @@ const router = createBrowserRouter([
   {
     path: '/personas/:id/foto',
     element: <FotoPersona />
+  },
+  {
+    path: "/mascotas",
+    element: <ListaMascotas />
+  },
+  {
+    path: "/mascotas/create",
+    element: <FormMascota />
+  },
+  {
+    path: "/mascotas/:id",
+    element: <FormMascota />
   },
   {
     path: "/usuarios",

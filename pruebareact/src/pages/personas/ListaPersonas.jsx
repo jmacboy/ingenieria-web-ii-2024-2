@@ -4,7 +4,7 @@ import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
 import NavMenu from "../../components/NavMenu";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { generoForDisplay } from "../../utils/stringUtils";
+import { generoForDisplay, tipoForDisplay } from "../../utils/stringUtils";
 import { useAuth } from "../../hooks/useAuth";
 
 const ListaPersonas = () => {
@@ -65,6 +65,7 @@ const ListaPersonas = () => {
                                             <th>Fecha de nacimiento</th>
                                             <th>Género</th>
                                             <th>Usuario</th>
+                                            <th>Mascotas</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -84,6 +85,9 @@ const ListaPersonas = () => {
                                                 <td>{moment(persona.fechaNacimiento).format('DD/MM/YYYY')}</td>
                                                 <td>{generoForDisplay(persona.genero)}</td>
                                                 <td>{persona.usuario.email}</td>
+                                                <td>{persona.mascotas.map(objMascota =>
+                                                    <div key={"mascota-" + objMascota.id}><b>{tipoForDisplay(objMascota.tipo)}:</b> {objMascota.nombre}</div>
+                                                )}</td>
                                                 <td><Link className="btn btn-success" to={"/personas/" + persona.id + "/foto"}>Foto de Perfil</Link></td>
                                                 <td><Link className="btn btn-primary" to={"/personas/" + persona.id}>Editar</Link></td>
                                                 <td><Button variant="danger" onClick={() => { eliminar(persona.id) }}>Eliminar</Button></td>

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import NavMenu from "../../components/NavMenu";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const FormLogin = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [errorText, setErrorText] = useState('')
 
     const [validated, setValidated] = useState(false);
 
@@ -38,6 +39,13 @@ const FormLogin = () => {
             localStorage.setItem('token', response.data.token);
             navigate('/personas');
         }).catch((error) => {
+            if (error.response.status === 401) {
+                setErrorText("Error, usuario o contraseña incorrectas");
+            } else {
+                const errorMsg = error.response.data.msg;
+                setErrorText(errorMsg);
+            }
+
             console.error(error);
         });
     }
@@ -53,6 +61,8 @@ const FormLogin = () => {
                                     <h2>Iniciar sesión</h2>
                                 </Card.Title>
                                 <Form noValidate validated={validated} onSubmit={onLoginSubmit}>
+                                    {errorText && <Alert variant="danger">{errorText}</Alert>}
+
                                     <Form.Group >
                                         <Form.Label>Email:</Form.Label>
                                         <Form.Control required value={email} type="email" onChange={onChangeEmail} />

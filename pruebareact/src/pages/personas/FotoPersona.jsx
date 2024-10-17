@@ -29,7 +29,11 @@ const FotoPersona = () => {
         }
         const formData = new FormData();
         formData.append('fotoPerfil', fotoPerfil);
-        axios.post(`http://localhost:3000/personas/${id}/foto`, formData)
+        axios.post(`http://localhost:3000/personas/${id}/foto`, formData, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res.data);
                 navigate(`/personas`);

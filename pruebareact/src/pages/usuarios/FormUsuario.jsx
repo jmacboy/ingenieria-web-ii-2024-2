@@ -58,7 +58,11 @@ const FormUsuario = () => {
 
     }
     const editUsuario = (usuario) => {
-        axios.patch(`http://localhost:3000/usuarios/${id}`, usuario)
+        axios.patch(`http://localhost:3000/usuarios/${id}`, usuario, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res.data);
                 navigate('/usuarios');
@@ -69,7 +73,11 @@ const FormUsuario = () => {
             });
     }
     const insertUsuario = (usuario) => {
-        axios.post('http://localhost:3000/usuarios', usuario)
+        axios.post('http://localhost:3000/usuarios', usuario, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res.data);
                 navigate('/usuarios');

@@ -92,7 +92,11 @@ const FormPersona = () => {
 
     }
     const editPersona = (persona) => {
-        axios.put(`http://localhost:3000/personas/${id}`, persona)
+        axios.put(`http://localhost:3000/personas/${id}`, persona, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res.data);
                 navigate('/personas');
@@ -101,7 +105,11 @@ const FormPersona = () => {
             });
     }
     const insertPersona = (persona) => {
-        axios.post('http://localhost:3000/personas', persona)
+        axios.post('http://localhost:3000/personas', persona, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res.data);
                 navigate('/personas');
