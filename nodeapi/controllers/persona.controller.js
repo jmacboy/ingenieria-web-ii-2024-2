@@ -12,7 +12,7 @@ exports.listPersona = async (req, res) => {
     console.log('usuario', req.user);
     try {
         const personas = await db.personas.findAll({
-            include: ['usuario']
+            include: ['usuario', 'mascotas']
         });
         res.json(personas);
     } catch (error) {
@@ -142,7 +142,9 @@ exports.uploadPicture = async (req, res) => {
     }
 }
 async function getPersonaOr404(id, res) {
-    const persona = await db.personas.findByPk(id);
+    const persona = await db.personas.findByPk(id, {
+        include: ['usuario', 'mascotas']
+    });
     if (!persona) {
         res.status(404).json({
             msg: 'Persona no encontrada'

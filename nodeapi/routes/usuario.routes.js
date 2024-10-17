@@ -5,12 +5,12 @@ module.exports = app => {
     const controller =
         require("../controllers/usuario.controller.js");
 
-    router.get('/', userRequiredMiddleware, controller.listUsuarios);
-    router.get('/:id', userRequiredMiddleware, controller.getUsuarioById);
+    router.get('/', controller.listUsuarios);
+    router.get('/:id', controller.getUsuarioById);
     router.post('/', controller.createUsuario);
-    router.put('/:id', userRequiredMiddleware, controller.updateUsuarioPut);
-    router.patch('/:id', userRequiredMiddleware, controller.updateUsuarioPatch);
-    router.delete('/:id', userRequiredMiddleware, controller.deleteUsuario);
+    router.put('/:id', controller.updateUsuarioPut);
+    router.patch('/:id', controller.updateUsuarioPatch);
+    router.delete('/:id', controller.deleteUsuario);
     app.use('/usuarios', router);
 
 };

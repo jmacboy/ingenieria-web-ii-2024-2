@@ -1,13 +1,22 @@
+const { SqliteDialect } = require("@sequelize/sqlite3");
 const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
+//Configuración en MySQL
+// const sequelize = new Sequelize(
+//     dbConfig.DB,
+//     dbConfig.USER,
+//     dbConfig.PASSWORD,
+//     {
+//         host: dbConfig.HOST,
+//         port: dbConfig.PORT,
+//         dialect: "mysql",
+//     }
+// );
+//Configuración en SQLite
 const sequelize = new Sequelize(
-    dbConfig.DB,
-    dbConfig.USER,
-    dbConfig.PASSWORD,
     {
-        host: dbConfig.HOST,
-        port: dbConfig.PORT,
-        dialect: "mysql",
+        dialect: 'sqlite',
+        storage: 'sequelize.sqlite'
     }
 );
 const db = {};
