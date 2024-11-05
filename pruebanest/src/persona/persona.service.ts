@@ -18,4 +18,8 @@ export class PersonaService {
     createPersona(persona: Persona): Promise<Persona> {
         return this.personasRepository.save(persona);
     }
+    async updatePersona(persona: Persona): Promise<Persona> {
+        await this.personasRepository.update(persona.id.toString(), persona);
+        return persona;
+    }
 }

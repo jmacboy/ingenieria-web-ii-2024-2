@@ -1,22 +1,22 @@
-import { IsISO8601, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsISO8601, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class PersonaDto {
-    @IsNotEmpty()
+export class PersonaUpdateDto {
+    @IsOptional()
     @IsString()
     readonly nombres: string;
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly apellidos: string;
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     readonly edad: number;
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly ciudad: string;
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     readonly genero: number;
-    @IsNotEmpty()
+    @IsOptional()
     @IsISO8601()
     readonly fechaNacimiento: Date;
 }

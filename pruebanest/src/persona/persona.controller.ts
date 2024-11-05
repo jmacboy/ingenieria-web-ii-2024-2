@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put } from "@nestjs/common";
 import { PersonaService } from "./persona.service";
 import { Persona } from "./persona.model";
 import { PersonaDto } from "./dto/persona.dto";
+import { PersonaUpdateDto } from "./dto/persona-update.dto";
 
 @Controller("personas")
 export class PersonaController {
@@ -27,11 +28,23 @@ export class PersonaController {
         });
     }
     @Put(":id")
-    update(id: string): string {
-        return "Actualizar persona " + id;
+    async update(@Param("id") id: number, @Body() persona: PersonaDto): Promise<Persona> {
+        const personaDB = await this.personasService.findById(id);
+        if (!personaDB) {
+            throw new NotFoundException();
+        }
+        return this.personasService.updatePersona({
+            id: id,
+            nombres: persona.nombres,
+            apellidos: persona.apellidos,
+            edad: persona.edad,
+            ciudad: persona.ciudad,
+            genero: persona.genero,
+            fechaNacimiento: persona.fechaNacimiento,
+        });
     }
     @Patch(":id")
-    partialUpdate(id: string): string {
+    partialUpdate(@Param("id") id: number, @Body() persona: PersonaUpdateDto): string {
         return "Actualizar parcialmente persona " + id;
     }
     @Delete(":id")
