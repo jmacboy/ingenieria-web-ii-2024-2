@@ -6,6 +6,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { Persona } from "./persona/persona.model";
 import { PersonaService } from "./persona/persona.service";
+import { AuthModule } from "./auth/auth.module";
+import { UsersModule } from "./users/users.module";
+import { User } from "./users/user.model";
 
 @Module({
     imports: [
@@ -16,10 +19,12 @@ import { PersonaService } from "./persona/persona.service";
             username: "root",
             password: "",
             database: "pruebanest",
-            entities: [Persona],
+            entities: [Persona, User],
             synchronize: true, //solo mientras estén en desarrollo
         }),
         TypeOrmModule.forFeature([Persona]),
+        AuthModule,
+        UsersModule,
     ],
     controllers: [AppController, PersonaController],
     providers: [AppService, PersonaService],

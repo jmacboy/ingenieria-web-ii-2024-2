@@ -12,8 +12,12 @@ export class PersonaController {
         return this.personasService.findAll();
     }
     @Get(":id")
-    get(@Param("id") id: number): Promise<Persona | null> {
-        return this.personasService.findById(id);
+    async get(@Param("id") id: number): Promise<Persona | null> {
+        const personaDB = await this.personasService.findById(id);
+        if (!personaDB) {
+            throw new NotFoundException();
+        }
+        return personaDB;
     }
     @Post()
     create(@Body() persona: PersonaDto): Promise<Persona> {
@@ -44,11 +48,27 @@ export class PersonaController {
         });
     }
     @Patch(":id")
-    partialUpdate(@Param("id") id: number, @Body() persona: PersonaUpdateDto): string {
-        return "Actualizar parcialmente persona " + id;
+    async partialUpdate(@Param("id") id: number, @Body() persona: PersonaUpdateDto): Promise<Persona> {
+        const personaDB = await this.personasService.findById(id);
+        if (!personaDB) {
+            throw new NotFoundException();
+        }
+        return this.personasService.updatePersona({
+            id: id,
+            nombres: persona.nombres ?? personaDB.nombres,
+            apellidos: persona.apellidos ?? personaDB.apellidos,
+            edad: persona.edad ?? personaDB.edad,
+            ciudad: persona.ciudad ?? personaDB.ciudad,
+            genero: persona.genero ?? personaDB.genero,
+            fechaNacimiento: persona.fechaNacimiento ?? personaDB.fechaNacimiento,
+        });
     }
     @Delete(":id")
-    delete(id: string): string {
-        return "Eliminar persona" + id;
+    async delete(@Param("id") id: number): Promise<void> {
+        const personaDB = await this.personasService.findById(id);
+        if (!personaDB) {
+            throw new NotFoundException();
+        }
+        return this.personasService.deletePersona(id);
     }
 }

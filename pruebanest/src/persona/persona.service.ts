@@ -22,4 +22,7 @@ export class PersonaService {
         await this.personasRepository.update(persona.id.toString(), persona);
         return persona;
     }
+    async deletePersona(id: number): Promise<void> {
+        await this.personasRepository.delete(id);
+    }
 }
