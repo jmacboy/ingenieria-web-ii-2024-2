@@ -1,13 +1,19 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { PersonaService } from "./persona.service";
 import { Persona } from "./persona.model";
 import { PersonaDto } from "./dto/persona.dto";
 import { PersonaUpdateDto } from "./dto/persona-update.dto";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { promisify } from "util";
+import { unlink } from "fs";
+import { AuthGuard } from "../auth/auth.guard";
+const unlinkAsync = promisify(unlink);
 
 @Controller("personas")
 export class PersonaController {
     constructor(private personasService: PersonaService) {}
     @Get()
+    @UseGuards(AuthGuard)
     list(): Promise<Persona[]> {
         return this.personasService.findAll();
     }
@@ -70,5 +76,19 @@ export class PersonaController {
             throw new NotFoundException();
         }
         return this.personasService.deletePersona(id);
+    }
+
+    @Post(":id/profile-picture")
+    @UseInterceptors(FileInterceptor("image"))
+    async uploadFile(@Param("id") id: number, @UploadedFile() image: Express.Multer.File) {
+        const personaDB = await this.personasService.findById(id);
+        if (!personaDB) {
+            await unlinkAsync(image.path);
+            throw new NotFoundException();
+        }
+        return {
+            filename: image.filename,
+            path: image.path,
+        };
     }
 }

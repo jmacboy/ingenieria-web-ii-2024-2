@@ -12,4 +12,10 @@ export class UsersService {
     findByEmail(email: string): Promise<User | null> {
         return this.usersRepository.findOneBy({ email });
     }
+    createUser(user: User): Promise<User> {
+        return this.usersRepository.save(user);
+    }
+    getUserById(id: number): Promise<User | null> {
+        return this.usersRepository.findOneBy({ id });
+    }
 }
