@@ -4,7 +4,10 @@ import { UsersService } from "../users/users.service";
 import { stringToSha1 } from "./crypto.utils";
 import { UserDto } from "./dto/user.dto";
 import { AuthGuard } from "./auth.guard";
+import { ApiBearerAuth } from "@nestjs/swagger";
+// import { ApiTags } from "@nestjs/swagger";
 
+// @ApiTags("usuarios")
 @Controller("auth")
 export class AuthController {
     constructor(
@@ -14,7 +17,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post("login")
-    signIn(@Body() signInDto: Record<string, any>) {
+    signIn(@Body() signInDto: UserDto) {
         return this.authService.signIn(signInDto.email, signInDto.password);
     }
     @Post("register")
@@ -35,6 +38,7 @@ export class AuthController {
     }
     @UseGuards(AuthGuard)
     @Get("me")
+    @ApiBearerAuth()
     getProfile(@Request() req) {
         return req.user;
     }
